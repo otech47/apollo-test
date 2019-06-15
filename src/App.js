@@ -1,10 +1,8 @@
 import React from 'react';
-import { Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
 import _ from 'lodash';
 
-import TransferEth from './TransferEth';
-import UserList from './UserList';
+import TransferEth from './components/TransferEth';
+import UserList from './components/UserList';
 
 import './App.css';
 
@@ -17,24 +15,25 @@ class App extends React.Component {
         document.addEventListener('scroll', this.trackScrolling);
     }
 
-    isBottom(el) {
-        return el.getBoundingClientRect().bottom <= window.innerHeight;
-    }
-
     trackScrolling = () => {
         const wrappedElement = document.getElementById('root');
-        if (this.isBottom(wrappedElement)) {
-            console.log('header bottom reached');
+        if (wrappedElement.getBoundingClientRect().bottom <= window.innerHeight) {
+
+            // Delays the next infinite scroll load to prevent
+            // multiple pages loading at once
             document.removeEventListener('scroll', this.trackScrolling);
+            window.setTimeout(() => {
+                document.addEventListener('scroll', this.trackScrolling);
+            }, 2000)
+
+            // Add another page of users
             this.setState({
                 pages: [
                     ...this.state.pages,
                     this.state.pages.length + 1
                 ]
             })
-            window.setTimeout(() => {
-                document.addEventListener('scroll', this.trackScrolling);
-            }, 2000)
+            
         }
     }
 
@@ -46,6 +45,7 @@ class App extends React.Component {
 
         this.setState({ openedTxnLists: _.uniq(updatedOpenedTxnList) })
     }
+
     renderUserLists = () => {
         const { pages, openedTxnLists } = this.state
 
@@ -59,12 +59,11 @@ class App extends React.Component {
             )
         })
     }
+    
     render() {
-        const { page } = this.state
-
         return (
             <div className='App'>
-                <TransferEth page={page}/>
+                <TransferEth/>
                 {this.renderUserLists()}
                 
             </div>

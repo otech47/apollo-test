@@ -7,12 +7,12 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
 const ADD_TXN = gql`
-    mutation AddTxn($fromId: String!, $toId: String!, $amount: String!, $page: Int!) {
-        addTxn(fromId: $fromId, toId: $toId, amount: $amount, page: $page) @client
+    mutation AddTxn($fromId: String!, $toId: String!, $amount: String!) {
+        addTxn(fromId: $fromId, toId: $toId, amount: $amount) @client
     }
 `
 
-function TransferEth({ page }) {
+function TransferEth() {
     const [values, setValues] = React.useState({
         showInputs: false,
         fromId: '',
@@ -66,8 +66,7 @@ function TransferEth({ page }) {
                         variables={{
                             fromId: values.fromId,
                             toId: values.toId,
-                            amount: values.amount,
-                            page
+                            amount: values.amount
                         }}
                     >
                         {addTxn => (

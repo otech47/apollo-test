@@ -38,7 +38,7 @@ class TransactionList extends React.Component {
             return (
                 <ListItem>
                     <ListItemText inset primary={`${moment(t.timestamp, 'X').format('MMM D, YYYY - hh:mma')}`}/>
-                    <ListItemText alignItems='flex-start'  primary={`${txnText}`}/>
+                    <ListItemText primary={`${txnText}`}/>
                 </ListItem>
             )
         })
@@ -46,9 +46,6 @@ class TransactionList extends React.Component {
     renderResults = ({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
-
-        console.log('TransactionList renderResults')
-        console.log(data)
 
         return (
             <List>

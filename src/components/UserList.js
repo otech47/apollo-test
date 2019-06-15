@@ -1,7 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
-import _ from 'lodash';
 
 import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
@@ -9,9 +8,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import TransferEth from './TransferEth';
 import TransactionList from './TransactionList';
-
 
 const calculateEthByProp = (exchangeBalances, prop) => {
     return exchangeBalances.reduce((total, e) => {

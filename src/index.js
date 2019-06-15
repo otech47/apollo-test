@@ -7,7 +7,7 @@ import ApolloClient from 'apollo-boost';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import resolvers from './resolvers';
+import resolvers from './state/resolvers';
 
 const API_URL = 'https://api.thegraph.com/subgraphs/name/graphprotocol/uniswap'
 
